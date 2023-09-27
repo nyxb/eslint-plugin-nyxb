@@ -3,7 +3,7 @@
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 
-Anthony extended ESLint rules. For [nyxb/eslint-config](https://github.com/nyxb/eslint-config).
+Nyxb's extended ESLint rules. For [nyxb/eslint-config](https://github.com/nyxb/eslint-config).
 
 [Rules List](./src/rules)
 
