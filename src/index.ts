@@ -14,7 +14,7 @@ import consistentListNewline from './rules/consistent-list-newline'
 
 const plugin = {
    meta: {
-      name: 'antfu',
+      name: 'nyxb',
       version,
    },
    rules: {
