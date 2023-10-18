@@ -5,18 +5,22 @@ import { createEslintRule } from '../utils'
 export const RULE_NAME = 'consistent-list-newline'
 export type MessageIds = 'shouldWrap' | 'shouldNotWrap'
 export type Options = [{
-   FunctionDeclaration?: boolean
-   FunctionExpression?: boolean
+   ArrayExpression?: boolean
    ArrowFunctionExpression?: boolean
    CallExpression?: boolean
-   ObjectExpression?: boolean
-   ArrayExpression?: boolean
-   ImportDeclaration?: boolean
    ExportNamedDeclaration?: boolean
-   TSInterfaceDeclaration?: boolean
-   TSTypeLiteral?: boolean
-   TSTupleType?: boolean
+   FunctionDeclaration?: boolean
+   FunctionExpression?: boolean
+   ImportDeclaration?: boolean
    NewExpression?: boolean
+   ObjectExpression?: boolean
+   TSInterfaceDeclaration?: boolean
+   TSTupleType?: boolean
+   TSTypeLiteral?: boolean
+   TSTypeParameterDeclaration?: boolean
+   TSTypeParameterInstantiation?: boolean
+   ObjectPattern?: boolean
+   ArrayPattern?: boolean
 }]
 
 export default createEslintRule<Options, MessageIds>({
@@ -106,6 +110,9 @@ export default createEslintRule<Options, MessageIds>({
             })
          }
          else if (mode === 'inline' && endLoc.line !== lastLine) {
+            // If there is only one multiline item, we allow the closing bracket to be on the a different line
+            if (items.length === 1 && items[0].loc.start.line !== items[1]?.loc.start.line)
+               return
             context.report({
                node: lastItem,
                messageId: 'shouldNotWrap',
@@ -154,9 +161,16 @@ export default createEslintRule<Options, MessageIds>({
             )
          },
          CallExpression: (node) => {
-            const startNode = node.callee.type === 'MemberExpression'
-               ? node.callee.property
-               : node.callee
+            const startNode
+        // if has type generic, check the last type argument
+        = node.typeArguments?.params.length
+           ? node.typeArguments.params[node.typeArguments.params.length - 1]
+        // if the callee is a member expression, get the property
+           : node.callee.type === 'MemberExpression'
+              ? node.callee.property
+           // else get the callee
+              : node.callee
+
             check(node, node.arguments, startNode)
          },
          TSInterfaceDeclaration: (node) => {
@@ -170,6 +184,18 @@ export default createEslintRule<Options, MessageIds>({
          },
          NewExpression: (node) => {
             check(node, node.arguments, node.callee)
+         },
+         TSTypeParameterDeclaration(node) {
+            check(node, node.params)
+         },
+         TSTypeParameterInstantiation(node) {
+            check(node, node.params)
+         },
+         ObjectPattern(node) {
+            check(node, node.properties)
+         },
+         ArrayPattern(node) {
+            check(node, node.elements)
          },
       } satisfies RuleListener
 

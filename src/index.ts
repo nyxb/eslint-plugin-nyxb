@@ -1,3 +1,5 @@
+import type { ESLint, Linter } from 'eslint'
+import { version } from '../package.json'
 import genericSpacing from './rules/generic-spacing'
 import ifNewline from './rules/if-newline'
 import importDedupe from './rules/import-dedupe'
@@ -10,7 +12,11 @@ import noConstEnum from './rules/no-const-enum'
 import namedTupleSpacing from './rules/named-tuple-spacing'
 import consistentListNewline from './rules/consistent-list-newline'
 
-export default {
+const plugin = {
+   meta: {
+      name: 'antfu',
+      version,
+   },
    rules: {
       'consistent-list-newline': consistentListNewline,
       'generic-spacing': genericSpacing,
@@ -18,20 +24,26 @@ export default {
       'import-dedupe': importDedupe,
       'named-tuple-spacing': namedTupleSpacing,
       'no-cjs-exports': noCjsExports,
-      'no-const-enum': noConstEnum,
       'no-import-node-modules-by-path': noImportNodeModulesByPath,
       'no-ts-export-equal': noTsExportEqual,
       'prefer-inline-type-import': preferInlineTypeImport,
       'top-level-function': topLevelFunction,
 
-      // deprecated
-      'consistent-object-newline': {
-         ...consistentListNewline,
-         name: 'consistent-object-newline',
-         meta: {
-            ...consistentListNewline.meta,
-            deprecated: true,
-         },
-      } as typeof consistentListNewline,
+      /**
+       * @deprecated Use `'no-restricted-syntax': ['error', 'TSEnumDeclaration[const=true]']` instead.
+       */
+      'no-const-enum': noConstEnum,
    },
+} satisfies ESLint.Plugin
+
+export default plugin
+
+type RuleDefinitations = typeof plugin['rules']
+
+export type RuleOptions = {
+   [K in keyof RuleDefinitations]: RuleDefinitations[K]['defaultOptions']
+}
+
+export type Rules = {
+   [K in keyof RuleOptions]: Linter.RuleEntry<RuleOptions[K]>
 }
