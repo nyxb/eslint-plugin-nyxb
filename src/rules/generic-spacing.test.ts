@@ -22,8 +22,8 @@ type Foo<
 `interface Foo {
   foo?: <T>(name: T) => void
 }`,
-'type Foo<\r\nT = true,\r\nK = false,\r\n> = T',
-'const toSortedImplementation = Array.prorotype.toSorted || function <T>(name: T): void {}',
+`type Foo<\r\nT = true,\r\nK = false,\r\n> = T`,
+`const toSortedImplementation = Array.prorotype.toSorted || function <T>(name: T): void {}`,
 ]
 const invalids = [
    ['type Foo<T=true> = T', 'type Foo<T = true> = T'],
