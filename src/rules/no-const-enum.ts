@@ -9,7 +9,7 @@ export default createEslintRule<Options, MessageIds>({
    meta: {
       type: 'problem',
       docs: {
-         description: 'Deprecated. Use `\'no-restricted-syntax\': [\'error\', \'TSEnumDeclaration[const=true]\']` instead.',
+         description: `Deprecated. Use \`'no-restricted-syntax': ['error', 'TSEnumDeclaration[const=true]']\` instead.`,
       },
       schema: [],
       messages: {
