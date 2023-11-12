@@ -24,7 +24,8 @@ const valids = [
    'function foo<T = {\na: 1,\nb: 2\n}>(a, b) {}',
    'foo(() =>\nbar())',
    'foo(() =>\nbar()\n)',
-   'call<{\nfoo: \'bar\'\n}>(\'\')',
+  `call<{\nfoo: 'bar'\n}>('')`,
+  `function fn({ foo, bar }: {\nfoo: 'foo'\nbar: 'bar'\n}) {}`,
 ]
 
 // Check snapshot for fixed code
