@@ -43,7 +43,7 @@ export default createEslintRule<Options, MessageIds>({
       space: 'Expect indentation to be consistent',
     },
   },
-  defaultOptions: [{ indent: 2 }],
+  defaultOptions: [{ indent: 3 }],
   create: (context, options) => {
     const { sourceCode } = context
 

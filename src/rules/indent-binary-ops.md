@@ -15,7 +15,7 @@ When using with `@stylistic/ts/indent`, we suggest to ignore `TSUnionType` and `
 ```json
 {
   "rules": {
-    "@stylistic/indent": ["error", 2, {
+    "@stylistic/indent": ["error", 3, {
       "ignoredNodes": [
         "TSUnionType",
         "TSIntersectionType"
