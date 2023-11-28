@@ -1,23 +1,23 @@
 {
-   "compilerOptions": {
-      "target": "es2020",
-      "lib": ["esnext"],
-      "module": "esnext",
-      "moduleResolution": "Bundler",
-      "types": [
-         "vitest/globals"
-      ],
-      "resolveJsonModule": true,
-      "esModuleInterop": true,
-      "strict": true,
-      "strictNullChecks": true,
-      "skipDefaultLibCheck": true,
-      "skipLibCheck": true
-   },
-   "include": [
-      "src"
-   ],
-   "exclude": [
-      "vendor"
-   ]
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "types": [
+      "vitest/globals"
+    ],
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "vendor"
+  ]
 }

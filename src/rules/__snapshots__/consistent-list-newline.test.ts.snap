@@ -1,5 +1,31 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`consistent-list-newline > invalid > 
+const a = (
+  <div>
+    {text.map((
+      item, index) => (
+      <p>
+      </p>
+    ))}
+  </div>
+)
+   1`] = `
+"
+const a = (
+  <div>
+    {text.map((
+      item, 
+index
+) => (
+      <p>
+      </p>
+    ))}
+  </div>
+)
+  "
+`;
+
 exports[`consistent-list-newline > invalid > const [
 a,b] = c 1`] = `
 "const [
@@ -28,18 +54,18 @@ exports[`consistent-list-newline > invalid > const a = [1,
 exports[`consistent-list-newline > invalid > const a = {
 foo: "bar", bar: 2 } 1`] = `
 "const a = {
-foo: \\"bar\\", 
+foo: "bar", 
 bar: 2
  }"
 `;
 
 exports[`consistent-list-newline > invalid > const a = {foo: "bar", 
 bar: 2
-} 1`] = `"const a = {foo: \\"bar\\", bar: 2}"`;
+} 1`] = `"const a = {foo: "bar", bar: 2}"`;
 
 exports[`consistent-list-newline > invalid > const a = {foo: "bar", \\u000d
 bar: 2\\u000d
-} 1`] = `"const a = {foo: \\"bar\\", bar: 2}"`;
+} 1`] = `"const a = {foo: "bar", bar: 2}"`;
 
 exports[`consistent-list-newline > invalid > const foo = (
 a, b) => {} 1`] = `
@@ -130,11 +156,11 @@ foo, bar } from "foo" 1`] = `
 "import {
 foo, 
 bar
- } from \\"foo\\""
+ } from "foo""
 `;
 
 exports[`consistent-list-newline > invalid > import { foo, 
-bar } from "foo" 1`] = `"import { foo, bar } from \\"foo\\""`;
+bar } from "foo" 1`] = `"import { foo, bar } from "foo""`;
 
 exports[`consistent-list-newline > invalid > interface Foo {
 a: 1,b: 2

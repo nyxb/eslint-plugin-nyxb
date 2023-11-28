@@ -11,39 +11,41 @@ import noCjsExports from './rules/no-cjs-exports'
 import noConstEnum from './rules/no-const-enum'
 import namedTupleSpacing from './rules/named-tuple-spacing'
 import consistentListNewline from './rules/consistent-list-newline'
+import indentBinaryOps from './rules/indent-binary-ops'
 
 const plugin = {
-   meta: {
-      name: 'nyxb',
-      version,
-   },
-   rules: {
-      'consistent-list-newline': consistentListNewline,
-      'generic-spacing': genericSpacing,
-      'if-newline': ifNewline,
-      'import-dedupe': importDedupe,
-      'named-tuple-spacing': namedTupleSpacing,
-      'no-cjs-exports': noCjsExports,
-      'no-import-node-modules-by-path': noImportNodeModulesByPath,
-      'no-ts-export-equal': noTsExportEqual,
-      'prefer-inline-type-import': preferInlineTypeImport,
-      'top-level-function': topLevelFunction,
+  meta: {
+    name: 'nyxb',
+    version,
+  },
+  rules: {
+    'consistent-list-newline': consistentListNewline,
+    'generic-spacing': genericSpacing,
+    'if-newline': ifNewline,
+    'import-dedupe': importDedupe,
+    'named-tuple-spacing': namedTupleSpacing,
+    'no-cjs-exports': noCjsExports,
+    'no-import-node-modules-by-path': noImportNodeModulesByPath,
+    'no-ts-export-equal': noTsExportEqual,
+    'prefer-inline-type-import': preferInlineTypeImport,
+    'top-level-function': topLevelFunction,
+    'indent-binary-ops': indentBinaryOps,
 
-      /**
-       * @deprecated Use `'no-restricted-syntax': ['error', 'TSEnumDeclaration[const=true]']` instead.
-       */
-      'no-const-enum': noConstEnum,
-   },
+    /**
+     * @deprecated Use `'no-restricted-syntax': ['error', 'TSEnumDeclaration[const=true]']` instead.
+     */
+    'no-const-enum': noConstEnum,
+  },
 } satisfies ESLint.Plugin
 
 export default plugin
 
-type RuleDefinitations = typeof plugin['rules']
+type RuleDefinitions = typeof plugin['rules']
 
 export type RuleOptions = {
-   [K in keyof RuleDefinitations]: RuleDefinitations[K]['defaultOptions']
+  [K in keyof RuleDefinitions]: RuleDefinitions[K]['defaultOptions']
 }
 
 export type Rules = {
-   [K in keyof RuleOptions]: Linter.RuleEntry<RuleOptions[K]>
+  [K in keyof RuleOptions]: Linter.RuleEntry<RuleOptions[K]>
 }

@@ -34,8 +34,8 @@ This rule might conflicts with the [object-curly-newline](https://eslint.org/doc
 
 ```ts
 export default {
-   rules: {
-      'object-curly-newline': 'off',
-   }
+  rules: {
+    'object-curly-newline': 'off',
+  }
 }
 ```
