@@ -3,9 +3,17 @@
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 
-Nyxb's extended ESLint rules. For [nyxb/eslint-config](https://github.com/nyxb/eslint-config).
+Nyxb extended ESLint rules. For [nyxb/eslint-config](https://github.com/nyxb/eslint-config).
 
 [Rules List](./src/rules)
+
+## Sponsors
+
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/nyxb/static/sponsors.svg">
+    <img src='https://cdn.jsdelivr.net/gh/nyxb/static/sponsors.svg'/>
+  </a>
+</p>
 
 ## License
 
@@ -13,7 +21,7 @@ Nyxb's extended ESLint rules. For [nyxb/eslint-config](https://github.com/nyxb/e
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/eslint-plugin-nyxb?style=flat&colorA=080f12&colorB=14F195
+[npm-version-src]: https://img.shields.io/npm/v/eslint-plugin-nyxb?style=flat&colorA=080f12&colorB=1fa669
 [npm-version-href]: https://npmjs.com/package/eslint-plugin-nyxb
-[npm-downloads-src]: https://img.shields.io/npm/dm/eslint-plugin-nyxb?style=flat&colorA=080f12&colorB=14F195
+[npm-downloads-src]: https://img.shields.io/npm/dm/eslint-plugin-nyxb?style=flat&colorA=080f12&colorB=1fa669
 [npm-downloads-href]: https://npmjs.com/package/eslint-plugin-nyxb

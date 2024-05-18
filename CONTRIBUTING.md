@@ -1,1 +1,1 @@
-Please refer to https://github.com/nyxb/contribute
+Please refer to https://nyxb.nexus/contribute

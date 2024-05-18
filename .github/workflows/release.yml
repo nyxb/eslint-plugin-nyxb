@@ -12,21 +12,18 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+
       - name: Set node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          registry-url: https://registry.npmjs.org/
-          node-version: 16.x
+          node-version: lts/*
 
-      - name: Setup
-        run: npm i -g @nyxb/nyxi
-
-      - name: Install
-        run: nyxci
-
-      - run: npx github-craftchangelogs
+      - run: npx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

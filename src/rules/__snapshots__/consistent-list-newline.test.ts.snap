@@ -1,31 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`consistent-list-newline > invalid > 
-const a = (
-  <div>
-    {text.map((
-      item, index) => (
-      <p>
-      </p>
-    ))}
-  </div>
-)
-   1`] = `
-"
-const a = (
-  <div>
-    {text.map((
-      item, 
-index
-) => (
-      <p>
-      </p>
-    ))}
-  </div>
-)
-  "
-`;
-
 exports[`consistent-list-newline > invalid > const [
 a,b] = c 1`] = `
 "const [
@@ -61,10 +35,6 @@ bar: 2
 
 exports[`consistent-list-newline > invalid > const a = {foo: "bar", 
 bar: 2
-} 1`] = `"const a = {foo: "bar", bar: 2}"`;
-
-exports[`consistent-list-newline > invalid > const a = {foo: "bar", \\u000d
-bar: 2\\u000d
 } 1`] = `"const a = {foo: "bar", bar: 2}"`;
 
 exports[`consistent-list-newline > invalid > const foo = (
