@@ -32,7 +32,6 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "lint": "pnpm run dev && eslint .",
-    "prepublishOnly": "nyxr build",
     "release": "bumping && npm publish",
     "start": "esno src/index.ts",
     "test": "vitest",
