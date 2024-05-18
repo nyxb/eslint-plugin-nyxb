@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-nyxb",
   "type": "module",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "packageManager": "pnpm@9.1.1",
   "description": "Nyxb extended ESLint rules",
   "author": "Dennis Ollhoff <contact@nyxb.email>",
