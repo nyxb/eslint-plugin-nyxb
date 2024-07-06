@@ -1,6 +1,7 @@
 import { expect } from 'vitest'
 import type { InvalidTestCase, ValidTestCase } from 'eslint-vitest-rule-tester'
 import { unindent as $ } from 'eslint-vitest-rule-tester'
+import jsoncParser from 'jsonc-eslint-parser'
 import rule, { RULE_NAME } from './consistent-list-newline'
 import { run } from './_test'
 
@@ -104,6 +105,38 @@ const valids: ValidTestCase[] = [
     ];
   `,
   `const a = [(1), (2)];`,
+  // https://github.com/nyxb/eslint-plugin-nyxb/issues/27
+  $`
+    this.foobar(
+      (x),
+      y,
+      z
+    )
+  `,
+  $`
+    foobar(
+      (x),
+      y,
+      z
+    )
+  `,
+  $`
+    foobar<A>(
+      (x),
+      y,
+      z
+    )
+  `,
+  // https://github.com/nyxb/eslint-plugin-nyxb/issues/22
+  $`
+    import Icon, {
+      MailOutlined,
+      NumberOutlined,
+      QuestionCircleOutlined,
+      QuestionOutlined,
+      UserOutlined,
+    } from '@ant-design/icons';
+  `,
   {
     code: $`
       function Foo() {
@@ -125,6 +158,66 @@ const valids: ValidTestCase[] = [
       },
     },
   },
+  {
+    code: $`
+      {
+        "foo": ["bar", "baz"]
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+  },
+  {
+    code: $`
+      {
+        "foo": [
+          "bar", 
+          "baz"
+        ]
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+  },
+  {
+    code: $`
+      {
+        "foo": {"a": "1", "b": "2"}
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+  },
+  {
+    code: $`
+      {
+        "foo": {
+          "a": "1",
+          "b": "2"
+        }
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+  },
+  {
+    description: 'Ignore when there is a comment',
+    code: $`
+      {
+        "foo": {          "a": "1",
+          // comment
+          "b": "2"
+        },
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+  },
 ]
 
 // Check snapshot for fixed code
@@ -141,7 +234,36 @@ const invalid: InvalidTestCase[] = [
   'const foo = (\na, b): {\na:b} => {}',
   'const foo = (\na, b): {a:b} => {}',
   'interface Foo {\na: 1,b: 2\n}',
+  {
+    description: 'Add delimiter to avoid syntax error, (interface)',
+    code: 'interface Foo {a: 1\nb: 2\n}',
+    output: o => expect(o)
+      .toMatchInlineSnapshot(`"interface Foo {a: 1,b: 2,}"`),
+  },
+  {
+    description: 'Delimiter already exists',
+    code: 'interface Foo {a: 1;\nb: 2,\nc: 3}',
+    output: o => expect(o)
+      .toMatchInlineSnapshot(`"interface Foo {a: 1;b: 2,c: 3}"`),
+  },
+  {
+    description: 'Delimiter in the middle',
+    code: $`
+      export interface Foo {        a: 1
+        b: Pick<Bar, 'baz'>
+        c: 3
+      }
+    `,
+    output: o => expect(o)
+      .toMatchInlineSnapshot(`"export interface Foo {        a: 1,  b: Pick<Bar, 'baz'>,  c: 3,}"`),
+  },
   'type Foo = {\na: 1,b: 2\n}',
+  {
+    description: 'Add delimiter to avoid syntax error, (type)',
+    code: 'type Foo = {a: 1\nb: 2\n}',
+    output: o => expect(o)
+      .toMatchInlineSnapshot(`"type Foo = {a: 1,b: 2,}"`),
+  },
   'type Foo = [1,2,\n3]',
   'new Foo(1,2,\n3)',
   'new Foo(\n1,2,\n3)',
@@ -298,6 +420,103 @@ const invalid: InvalidTestCase[] = [
       }
         // hello
       )"
+    `),
+  },
+  {
+    code: $`
+      {
+        "foo": ["bar",
+        "baz"],
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+    output: o => expect(o).toMatchInlineSnapshot(`
+      "{
+        "foo": ["bar",  "baz"],
+      }"
+    `),
+  },
+  {
+    code: $`
+      {
+        "foo": [
+          "bar","baz"
+        ],
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+    output: o => expect(o).toMatchInlineSnapshot(`
+      "{
+        "foo": [
+          "bar",
+      "baz"
+        ],
+      }"
+    `),
+  },
+  {
+    code: $`
+      {
+        "foo": {"a": "1",
+         "b": "2"}
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+    output: o => expect(o).toMatchInlineSnapshot(`
+      "{
+        "foo": {"a": "1",   "b": "2"}
+      }"
+    `),
+  },
+  {
+    code: $`
+      {
+        "foo": {
+          "a": "1",         "b": "2"
+        }
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+    output: o => expect(o).toMatchInlineSnapshot(`
+      "{
+        "foo": {
+          "a": "1",         
+      "b": "2"
+        }
+      }"
+    `),
+  },
+  {
+    description: 'Only ignore when there is a comment',
+    code: $`
+      {
+        "foo": {          "a": "1",
+          // comment
+          "b": "2"
+        },
+        "bar": ["1",
+        "2"]
+      }
+    `,
+    languageOptions: {
+      parser: jsoncParser,
+    },
+    output: o => expect(o).toMatchInlineSnapshot(`
+      "{
+        "foo": {          "a": "1",
+          // comment
+          "b": "2"
+        },
+        "bar": ["1",  "2"]
+      }"
     `),
   },
 ]

@@ -22,7 +22,7 @@ export default createEslintRule<Options, MessageIds>({
           indent: {
             type: 'number',
             minimum: 0,
-            default: 2,
+            default: 3,
           },
           tags: {
             type: 'array',
@@ -42,7 +42,7 @@ export default createEslintRule<Options, MessageIds>({
   create(context) {
     const {
       tags = ['$', 'unindent', 'unIndent'],
-      indent = 2,
+      indent = 3,
     } = context.options?.[0] ?? {}
 
     return {
